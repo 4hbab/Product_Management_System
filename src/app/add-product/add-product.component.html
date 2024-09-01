@@ -1,0 +1,118 @@
+<div
+  class="max-w-md mx-auto bg-white p-8 mt-20 border border-gray-300 rounded-lg shadow-lg"
+>
+  <h2 class="text-2xl font-bold mb-6 text-center">Add New Product</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div>
+      <label for="productName" class="block text-sm font-medium text-gray-700"
+        >Product Name</label
+      >
+      <input
+        id="productName"
+        formControlName="productName"
+        type="text"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="category" class="block text-sm font-medium text-gray-700"
+        >Category</label
+      >
+      <select
+        id="category"
+        formControlName="category"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required
+      >
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+        <option value="new">Add New Category</option>
+      </select>
+      <input
+        *ngIf="isAddingNewCategory"
+        formControlName="newCategory"
+        type="text"
+        placeholder="New Category"
+        class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+    </div>
+
+    <div>
+      <label for="price" class="block text-sm font-medium text-gray-700"
+        >Price</label
+      >
+      <input
+        id="price"
+        formControlName="price"
+        type="number"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="description" class="block text-sm font-medium text-gray-700"
+        >Description</label
+      >
+      <textarea
+        id="description"
+        formControlName="description"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="image" class="block text-sm font-medium text-gray-700"
+        >Image</label
+      >
+      <input
+        id="image"
+        formControlName="image"
+        type="file"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+    </div>
+
+    <div>
+      <label for="quantity" class="block text-sm font-medium text-gray-700"
+        >Quantity</label
+      >
+      <input
+        id="quantity"
+        formControlName="quantity"
+        type="number"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required
+      />
+    </div>
+
+    <div>
+      <label
+        for="itemCreateDate"
+        class="block text-sm font-medium text-gray-700"
+        >Item Create Date</label
+      >
+      <input
+        id="itemCreateDate"
+        formControlName="itemCreateDate"
+        type="date"
+        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        required
+      />
+    </div>
+
+    <div>
+      <button
+        type="submit"
+        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        [disabled]="!productForm.valid"
+      >
+        Add Product
+      </button>
+    </div>
+  </form>
+</div>
