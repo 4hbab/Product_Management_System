@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
   searchControl = new FormControl('');
   currentPage = 1;
   pageSize = 10;
-  Math: any;
+  Math = Math;
 
   ngOnInit() {
     this.loadProducts();
