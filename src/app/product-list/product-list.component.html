@@ -7,7 +7,10 @@
       placeholder="Search by Product Name"
       class="border border-gray-300 p-2 rounded-md w-1/2"
     />
-    <button class="bg-green-500 text-white py-2 px-4 rounded-md">
+    <button
+      (click)="showAddProduct = true"
+      class="bg-green-500 text-white py-2 px-4 rounded-md"
+    >
       Create Product
     </button>
   </div>
@@ -33,10 +36,10 @@
         </td>
         <td class="border px-4 py-2">
           <button
+            (click)="editProduct(product)"
             class="text-blue-600 hover:text-blue-900 mr-2"
             title="Edit Product"
           >
-            <!-- Edit icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5 inline-block"
@@ -53,10 +56,10 @@
             </svg>
           </button>
           <button
+            (click)="deleteProduct(product)"
             class="text-red-600 hover:text-red-900"
             title="Delete Product"
           >
-            <!-- Delete icon -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5 inline-block"
@@ -94,3 +97,10 @@
     </button>
   </div>
 </div>
+
+<app-add-product
+  *ngIf="showAddProduct"
+  [editProduct]="editingProduct"
+  (productSaved)="onProductSaved($event)"
+  (cancel)="cancelEdit()"
+></app-add-product>

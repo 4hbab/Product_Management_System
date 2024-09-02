@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-add-product',
@@ -14,7 +15,11 @@ import {
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit {
+  @Input() editProduct: Product | null = null;
+  @Output() productSaved = new EventEmitter<Product>();
+  @Output() cancel = new EventEmitter<void>();
+
   productForm: FormGroup;
   categories: string[] = [
     'Electronics',
@@ -35,44 +40,46 @@ export class AddProductComponent {
       quantity: ['', [Validators.required, Validators.min(1)]],
       itemCreateDate: ['', Validators.required],
     });
+  }
 
+  ngOnInit() {
     this.productForm.get('category')?.valueChanges.subscribe((value) => {
       this.isAddingNewCategory = value === 'new';
     });
+
+    if (this.editProduct) {
+      this.productForm.patchValue(this.editProduct);
+    }
   }
 
   onSubmit() {
     if (this.productForm.valid) {
-      const newProduct = this.productForm.value;
-
+      const product = this.productForm.value;
       if (this.isAddingNewCategory) {
-        this.categories.push(newProduct.newCategory);
-        newProduct.category = newProduct.newCategory;
+        this.categories.push(product.newCategory);
+        product.category = product.newCategory;
       }
 
-      // Save the product details to local storage
-      this.saveProduct(newProduct);
+      // Check if there are already 10 products in the same category
+      const existingProducts = JSON.parse(
+        localStorage.getItem('products') || '[]'
+      );
+      const productsInSameCategory = existingProducts.filter(
+        (p: Product) => p.category === product.category
+      );
 
-      // Reset the form after submission
+      if (productsInSameCategory.length >= 10) {
+        alert('Cannot add more than 10 products in the same category.');
+        return;
+      }
+
+      this.productSaved.emit(product);
       this.productForm.reset();
       this.isAddingNewCategory = false;
     }
   }
 
-  saveProduct(product: any) {
-    let products = JSON.parse(localStorage.getItem('products') || '[]');
-
-    // Check for the category limit (no more than 10 products in the same category)
-    const categoryCount = products.filter(
-      (p: any) => p.category === product.category
-    ).length;
-    if (categoryCount >= 10) {
-      alert('Cannot add more than 10 products in the same category.');
-      return;
-    }
-
-    products.push(product);
-    localStorage.setItem('products', JSON.stringify(products));
-    console.log('Product saved to local storage:', product);
+  onCancel() {
+    this.cancel.emit();
   }
 }
