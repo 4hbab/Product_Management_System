@@ -1,27 +1,81 @@
-# ProductManagement
+# Product Management System - Documentation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+## Overview
 
-## Development server
+The **Product Management System** is a web-based application designed to manage products, including functionalities like adding new products, updating existing ones, deleting products, and searching through the list of products. This project is built using modern web technologies including Angular for the frontend and localStorage for the database.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Features
 
-## Code scaffolding
+- **Add Products**: Users can add new products with details such as name, price, and description.
+- **Edit Products**: Existing products can be edited to update their information.
+- **Delete Products**: Products can be removed from the system.
+- **Search Products**: The system allows users to search for products based on the product name.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Prerequisites
 
-## Build
+Before you can run the project, ensure that you have the following software installed on your local machine:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Node.js** (version 18.x or later)
+- **Angular CLI** (version 15.x or later)
+- **Git** (for version control)
 
-## Running unit tests
+## Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 1. Clone the Repository
 
-## Running end-to-end tests
+Begin by cloning the repository to your local machine:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+git clone https://github.com/4hbab/Product_Management_System.git
+cd Product_Management_System
+```
 
-## Further help
+### 2. Install Dependencies
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Navigate to the `product_management_system` directory and install the required Angular packages:
+
+```bash
+cd product_management_system
+npm install
+```
+
+### 3. Start the Frontend Application
+
+Next, start the Angular application:
+
+```bash
+cd product_management_system
+ng serve
+```
+
+The application will start running on `http://localhost:4200`.
+
+### 4. Access the Application
+
+Once the application is running, you can access the application by opening a web browser and navigating to:
+
+```
+http://localhost:4200
+```
+
+## Project Structure
+
+- **/product_management_system**: This directory contains the Angular frontend code.
+  - **/src**: Contains the source code for the Angular application.
+    - **/app**: Contains the core application components and services.
+
+## Contributing
+
+Contributions are welcome! Please follow the guidelines below:
+
+- Fork the repository.
+- Create a new branch (`git checkout -b feature-branch`).
+- Commit your changes (`git commit -am 'Add new feature'`).
+- Push to the branch (`git push origin feature-branch`).
+- Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
