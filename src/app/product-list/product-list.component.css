@@ -1,0 +1,32 @@
+/* product-list.component.css */
+
+@media (max-width: 640px) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    font-size: 0.875rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500;
+}
+
+.btn-secondary {
+  @apply bg-gray-300 text-gray-700 hover:bg-gray-400 focus:ring-gray-500;
+}
+
+.search-input {
+  @apply w-full sm:w-auto px-4 py-2 border rounded-md;
+}
