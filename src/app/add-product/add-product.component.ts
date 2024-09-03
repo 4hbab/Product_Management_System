@@ -45,6 +45,12 @@ export class AddProductComponent implements OnInit {
   ngOnInit() {
     this.productForm.get('category')?.valueChanges.subscribe((value) => {
       this.isAddingNewCategory = value === 'new';
+      if (this.isAddingNewCategory) {
+        this.productForm.get('newCategory')?.setValidators(Validators.required);
+      } else {
+        this.productForm.get('newCategory')?.clearValidators();
+      }
+      this.productForm.get('newCategory')?.updateValueAndValidity();
     });
 
     if (this.editProduct) {
@@ -76,10 +82,42 @@ export class AddProductComponent implements OnInit {
       this.productSaved.emit(product);
       this.productForm.reset();
       this.isAddingNewCategory = false;
+    } else {
+      this.markFormGroupTouched(this.productForm);
     }
   }
 
   onCancel() {
     this.cancel.emit();
+  }
+
+  // Helper method to mark all controls in a form group as touched
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  // Helper methods to check field validity
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.productForm.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const field = this.productForm.get(fieldName);
+    if (field?.errors) {
+      if (field.errors['required']) {
+        return 'This field is required';
+      }
+      if (field.errors['min']) {
+        return `Minimum value is ${field.errors['min'].min}`;
+      }
+    }
+    return '';
   }
 }
